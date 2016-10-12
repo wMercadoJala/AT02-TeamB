@@ -21,4 +21,8 @@ class MeDetails < BaseClassForDataClasses
     super(values)
   end
 
+  def search_id(client, attribute, value)
+
+  end
+
 end
