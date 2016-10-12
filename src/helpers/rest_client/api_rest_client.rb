@@ -14,11 +14,11 @@ class RubyRestTeamB
   def get_request (url)
     response = nil
     begin
-      response = RestClient.get "#{@base_url}" % url, @header
-    rescue RestClient::ExceptionWithReponse => err
+      final_url = @base_url + url
+      response = RestClient.get final_url, @header
+    rescue RestClient::ExceptionWithResponse => err
       response = err.response
     end
-    response.code
     body = JSON.parse(response.body.to_s)
     [response.code, body]
   end
@@ -26,11 +26,11 @@ class RubyRestTeamB
   def post_request(url, json)
     response = nil
     begin
-      response = RestClient.post "#{@base_url}" % url, json, @header
+      final_url = @base_url + url
+      response = RestClient.post final_url, json, @header
       rescue RestClient::ExceptionWithResponse => err
         response = err.response
     end
-    response.code
     body = JSON.parse(response.body.to_s)
     [response.code, body]
   end
@@ -38,11 +38,11 @@ class RubyRestTeamB
   def put_request(url, json)
     response = nil
     begin
-      response = RestClient.put "#{@base_url}" % url, json, @header
+      final_url = @base_url + url
+      response = RestClient.put final_url, json, @header
     rescue RestClient::ExceptionWithResponse => err
       response = err.response
     end
-    response.code
     body = JSON.parse(response.body.to_s)
     [response.code, body]
   end
@@ -51,8 +51,9 @@ class RubyRestTeamB
   def delete_request(url)
     response = nil
     begin
-      response = RestClient.delete "#{@base_url}" % url, @header
-    rescue RestClient::ExceptionWithReponse => err
+      final_url = @base_url + url
+      response = RestClient.delete final_url, @header
+    rescue RestClient::ExceptionWithResponse => err
       response = err.response
     end
     response.code
