@@ -1,8 +1,8 @@
 @api_test
-Feature: MeDetails Smoke Tests
+Feature: Project Smoke Tests
 
   @smoke
-  Scenario: MeDetails Get
+  Scenario: Project Create
     Given I have set a connection to pivotal_tracker API service
-    When I send a GET request to MeDetailsGet endpoint
+    When Sending a POST request endpoint
     Then I expect Status code 200 for the SmokeTest
