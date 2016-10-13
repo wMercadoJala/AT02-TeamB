@@ -4,7 +4,7 @@ Cucumber::Rake::Task.new(:all, 'Runs the whole test Suite') do |t|
   begin
     t.cucumber_opts = 'features/* --format html --out=reports/all-report.html'
   rescue
-
+# ignored
   end
 
 end
@@ -13,7 +13,7 @@ Cucumber::Rake::Task.new(:all_jenkins, 'Runs the whole test Suite') do |t|
   begin
     t.cucumber_opts = 'features/* -f json -o reports.json'
   rescue
-
+# ignored
   end
 
 end

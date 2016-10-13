@@ -1,8 +1,10 @@
+# noinspection RubyResolve
 require 'rest-client'
 require 'json'
 require_relative '../config/configuration'
 require_relative '../data_helper'
 
+# noinspection ALL
 class RubyRestTeamB
   def initialize
     @config = Configuration.new

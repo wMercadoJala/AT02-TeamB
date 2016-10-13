@@ -1,5 +1,5 @@
 @api_test
-Feature: Epic Smoke Tests
+Feature: Epic Tests
 
   @smoke @post @epic
   Scenario: Epic create
@@ -18,7 +18,7 @@ Feature: Epic Smoke Tests
     When I sending a DELETE request to epics endpoint
     Then I expect Status code 204 for the SmokeTest
 
-   @smoke @get @epic
+  @smoke @get @epics
      Scenario: Epics get
      Given I have set a connection to pivotal_tracker API service
      And I have a ProjectEpicTest project
@@ -26,10 +26,18 @@ Feature: Epic Smoke Tests
      When I sending a GET request to epics endpoint
      Then I expect Status code 200 for the SmokeTest
 
-    @smoke @put @epic
+  @smoke @put @epic
       Scenario: Epic put
       Given I have set a connection to pivotal_tracker API service
       And I have a ProjectEpicTest project
       Then I want to modify an epic with the name EpicTest to EpicTest2
       When I sending a PUT request to epics endpoint
       Then I expect Status code 200 for the SmokeTest
+
+  @smoke @getSpecific @epic
+    Scenario: Epic get
+    Given I have set a connection to pivotal_tracker API service
+    And I have a ProjectEpicTest project
+    Then I want to get an epic with the name EpicTest
+    When I sending GET request to epics endpoint
+    Then I expect Status code 200 for the SmokeTest
