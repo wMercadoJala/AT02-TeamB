@@ -7,7 +7,7 @@ When(/^Sending a POST request endpoint$/) do
 end
 
 Then(/^The project is deleted$/) do
-  _ = Projects.project_delete(@client, @body["id"])
+  Projects.project_delete(@client, @body['id'])
 end
 
 And(/^I have a project$/) do
@@ -21,13 +21,14 @@ end
 
 When(/^Sending a PUT request endpoint$/) do
   @json = {:name => 'testProjectModify05'}
-  @code, @body = Projects.project_put(@client,@json,@body["id"])
+  @code, @body = Projects.project_put(@client, @json, @body['id'])
 end
 
 When(/^Sending a GET BY ID request endpoint$/) do
-  @code, _ = Projects.project_get_by_id(@client,@body["id"])
+  @code, _ = Projects.project_get_by_id(@client, @body['id'])
 end
 
 When(/^Sending a DELETE request endpoint$/) do
-  @code = Projects.project_delete(@client,@body["id"])
+  @code = Projects.project_delete(@client, @body['id'])
 end
+
