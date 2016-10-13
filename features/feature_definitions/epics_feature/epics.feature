@@ -26,10 +26,10 @@ Feature: Epic Smoke Tests
      When I sending a GET request to epics endpoint
      Then I expect Status code 200 for the SmokeTest
 
-#    @smoke @put @epic
-#      Scenario: Epic put
-#      Given I have set a connection to pivotal_tracker API service
-#      And I have a ProjectEpicTest project
-#      Then I want to modify an epic with the name EpicTest to EpicTest2
-#      When I sending a PUT request to epics endpoint
-#      Then I expect Status code 200 for the SmokeTest
+    @smoke @put @epic
+      Scenario: Epic put
+      Given I have set a connection to pivotal_tracker API service
+      And I have a ProjectEpicTest project
+      Then I want to modify an epic with the name EpicTest to EpicTest2
+      When I sending a PUT request to epics endpoint
+      Then I expect Status code 200 for the SmokeTest
