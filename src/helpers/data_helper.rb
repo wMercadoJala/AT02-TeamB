@@ -9,6 +9,8 @@ class DataHelper
     end
     rehash
   end
+
+  # noinspection RubyArgCount
   def self.parse_json(string)
     parser = JSON::Ext::Parser.new(string)
     json = parser.parser

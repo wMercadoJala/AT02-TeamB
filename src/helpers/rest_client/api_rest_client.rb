@@ -1,10 +1,12 @@
 # noinspection RubyResolve
+
 require 'rest-client'
 require 'json'
 require_relative '../config/configuration'
 require_relative '../data_helper'
 
 # noinspection ALL
+
 class RubyRestTeamB
   def initialize
     @config = Configuration.new
@@ -22,6 +24,7 @@ class RubyRestTeamB
       response = err.response
     end
     response.code
+
     body = JSON.parse(response.body.to_s)
     [response.code, body]
   end
@@ -35,6 +38,7 @@ class RubyRestTeamB
         response = err.response
     end
     response.code
+
     body = JSON.parse(response.body.to_s)
     [response.code, body]
   end
@@ -47,6 +51,7 @@ class RubyRestTeamB
     rescue RestClient::ExceptionWithResponse => err
       response = err.response
     end
+
     response.code
     body = JSON.parse(response.body.to_s)
     [response.code, body]
