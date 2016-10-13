@@ -1,3 +1,13 @@
+And(/^I have a project (.*) created$/) do |name|
+  require_relative '../../../src/requests/Epics/epics'
+  @body = {:name => name}
+  @epic = Epics.new
+  # noinspection RubyResolve
+  _, @response_project = @client.post_request('projects', @body)
+  @project_id =  (@response_project['id']).to_s
+end
+
+######
 
 And(/^I expects story (.*) will be (.*)$/) do |attribute, name|
   actual_name = @response[attribute]
@@ -6,33 +16,60 @@ end
 
 ###POST
 
-And(/^I want to create a story with (.*) (.*)$/) do |attribute, story_name|
+When(/^I want to create a story with (.*) (.*)$/) do |attribute, story_name|
   require_relative '../../../src/requests/Stories/stories'
   @body = {attribute => story_name}
 end
 
-When(/^I send a POST request to (.*) endpoint with projects id (.*)$/) do |end_point, id_project|
-  @code, @response = Stories.stories_post(@client, id_project, end_point, @body)
+And(/^I send a POST request to (.*) endpoint$/) do |end_point|
+  @code, @response = Stories.stories_post(@client, @project_id, end_point, @body)
+  @client.delete_request('projects/' + @project_id)
 end
 
 ####GET
 
-When(/^I send a GET request to (.*) endpoint with projects id (.*)$/) do |end_point, id_project|
-  @code, @response_get = Stories.stories_get(@client, id_project, end_point)
+And(/^I have a list of stories$/) do
+  @story = {:name => 'Story'}
+  @story2 = {:name => 'Story2'}
+  # noinspection RubyResolve
+  _, _ = Stories.stories_post(@client, @project_id, 'epics', @story)
+  # noinspection RubyResolve
+  _, _ = Stories.stories_post(@client, @project_id, 'epics', @story2)
+end
+
+When(/^I send a GET request to (.*) endpoint$/) do |end_point|
+  @code, @response_get = Stories.stories_get(@client, @project_id, end_point)
+  @client.delete_request('projects/' + @project_id)
 end
 
 ####PUT
 
-And(/^I send a PUT request to stories with new name (.*)$/) do |modify_name|
-  @body = {'name' => modify_name}
-end
-
-When(/^I want to modify a (.*) endpoint with (.*) from the projects id (.*)$/) do |end_point, story_attribute, id_project|
+And(/^I want to modify a (.*) endpoint the story (.*) (.*)$/) do |end_point, story_attribute, name|
   require_relative '../../../src/requests/Stories/stories'
-
-  @body_aux = {'name' => 'ParaPUTS'}
-  @code_aux, @response_aux = Stories.stories_post(@client, id_project, end_point, @body_aux)
-
-  @code, @response = Stories.stories_put(@client, id_project, end_point, @response_aux[story_attribute].to_s, @body)
+  @body_original = {story_attribute => name}
+  _, @response_aux = Stories.stories_post(@client, @project_id, end_point, @body_original)
+  @story_id = @response_aux['id'].to_s
 end
 
+
+When(/^I send a PUT request to stories with new name (.*)$/) do |modify_name|
+  @body = {:name => modify_name}
+  @code, @response = Stories.stories_put(@client, @project_id, 'stories', @story_id , @body)
+
+  @client.delete_request('projects/' + @project_id)
+end
+
+####DELETE
+
+
+When(/^I want to DELETE (.*) story$/) do |name|
+  @body = {:name => name}
+  _, @response = Stories.stories_post(@client, @project_id, 'stories', @body)
+  @story_id = @response['id'].to_s
+end
+
+And(/^I send a DELETE request to (.*) endpoint$/) do |end_point|
+  @code = Stories.stories_delete(@client, @project_id,end_point, @story_id)
+
+  @client.delete_request('projects/' + @project_id)
+end

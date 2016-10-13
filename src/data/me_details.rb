@@ -20,9 +20,4 @@ class MeDetails < BaseClassForDataClasses
   def initialize(values = {})
     super(values)
   end
-
-  def search_id(client, attribute, value)
-
-  end
-
 end
