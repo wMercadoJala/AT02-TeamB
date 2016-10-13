@@ -1,14 +1,15 @@
+# noinspection RubyResolve
 require 'rest-client'
 require 'json'
 require_relative '../config/configuration'
 require_relative '../data_helper'
 
+# noinspection ALL
 class RubyRestTeamB
   def initialize
     @config = Configuration.new
     @base_url = @config.get('url')
     @token = @config.get('account/token')
-    # noinspection RubyStringKeysInHashInspection
     @header = {'X-TrackerToken' => @token}
   end
 
@@ -17,12 +18,11 @@ class RubyRestTeamB
     begin
       final_url = @base_url + url
       response = RestClient.get final_url, @header
-    rescue RestClient::ExceptionWithReponse => err
+    rescue RestClient::ExceptionWithResponse => err
       response = err.response
     end
     response.code
     body = JSON.parse(response.body.to_s)
-    final_url
     [response.code, body]
   end
 
@@ -58,7 +58,7 @@ class RubyRestTeamB
     begin
       final_url = @base_url + url
       response = RestClient.delete final_url, @header
-    rescue RestClient::ExceptionWithReponse => err
+    rescue RestClient::ExceptionWithResponse => err
       response = err.response
     end
     response.code

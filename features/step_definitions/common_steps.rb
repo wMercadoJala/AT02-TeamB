@@ -4,5 +4,6 @@ Given(/^I have set a connection to pivotal_tracker API service$/) do
 end
 
 Then(/^I expect Status code (\d+) for the SmokeTest$/) do |http_code|
-   expect(@code.to_s).to eql(http_code.to_s)
+  # noinspection RubyResolve
+  expect(@code.to_s).to eql(http_code.to_s)
 end
