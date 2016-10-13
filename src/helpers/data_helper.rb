@@ -11,7 +11,7 @@ class DataHelper
   end
   def self.parse_json(string)
     parser = JSON::Ext::Parser.new(string)
-    json = parser.parse
+    json = parser.parser
     json
   end
 end

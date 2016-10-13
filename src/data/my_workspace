@@ -15,7 +15,9 @@ class MeDetails < BaseClassForDataClasses
                 :time_zone,
                 :updated_at,
                 :username,
-                :workspaces
+                :workspaces,
+                :person_id,
+                :project_ids
 
   def initialize(values = {})
     super(values)

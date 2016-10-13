@@ -1,5 +1,5 @@
 class BaseClassForDataClasses
-
+attr_accessor :attributes
   def initialize(values)
     case
       when values.respond_to?(:each_pair)

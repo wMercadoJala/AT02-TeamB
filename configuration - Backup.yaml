@@ -1,0 +1,5 @@
+app:
+  url: https://www.pivotaltracker.com/services/v5/
+  time_out: 180
+  account:
+    token: 20a622923d97743e543b85bc2b43bc63
